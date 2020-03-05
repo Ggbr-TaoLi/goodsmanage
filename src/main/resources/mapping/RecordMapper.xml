@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goods.goodsmanage.mapper.RecordMapper">
+    <resultMap type="Records" id="BaseRecord">
+        <id property="recordsId" column="records_Id" javaType="java.lang.Integer"/>
+        <result property="recordsGoodsId" column="records_Goods" javaType="java.lang.Integer"/>
+        <result property="recordsName" column="records_Name" javaType="java.lang.String"/>
+        <result property="recordsDate" column="records_Date" javaType="java.sql.Date"/>
+        <result property="recordsNum" column="records_Num" javaType="java.lang.Integer"/>
+        <result property="recordsDesc" column="records_Desc" javaType="java.lang.String"/>
+    </resultMap>
+    <select id="findAll" resultMap="BaseRecord">
+		select * from records
+	</select>
+    <insert id="saveRecord" parameterType="Records">
+        insert into records(records_Goods, records_Name,records_Date,records_Num,records_Desc)
+        values(#{recordsGoodsId},#{recordsName},#{recordsDate},#{recordsNum},#{recordsDesc})
+    </insert>
+</mapper>

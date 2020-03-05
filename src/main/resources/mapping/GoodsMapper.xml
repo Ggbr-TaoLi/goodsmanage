@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.goods.goodsmanage.mapper.GoodsMapper">
+    <resultMap type="Goods" id="BaseGoods">
+        <id property="goodsId" column="goods_id" javaType="java.lang.Integer"/>
+        <result property="goodsName" column="goods_Name" javaType="java.lang.String"/>
+        <result property="goodsUnit" column="goods_Unit" javaType="java.lang.String"/>
+        <result property="goodsNum" column="goods_Num" javaType="java.lang.Integer"/>
+        <result property="goodsTypeID" column="goods_Type" javaType="java.lang.Integer"/>
+        <result property="goodsDesc" column="goods_Desc" javaType="java.lang.String"/>
+        <result property="goodsDate" column="goods_Date" javaType="java.sql.Date"/>
+    </resultMap>
+    <select id="findAll" resultMap="BaseGoods">
+		select * from goods
+	</select>
+    <select id="findId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select goods_Id from goods where goods_Name = #{name}
+	</select>
+    <update id="updateGoods" parameterType="Goods">
+        update goods
+        <set>
+            <if test="goodsName!=null and goodsName!=''">
+                goods_Name=#{goodsName},
+            </if>
+            <if test="goodsUnit!=null">
+                goods_Unit=#{goodsUnit},
+            </if>
+            <if test="goodsNum!=null">
+                goods_Num=#{goodsNum},
+            </if>
+            <if test="goodsTypeID!=null">
+                goods_Type=#{goodsTypeID},
+            </if>
+            <if test="goodsDate!=null">
+                goods_Date=#{goodsDate},
+            </if>
+            <if test="goodsDesc!=null">
+                goods_Desc=#{goodsDesc},
+            </if>
+        </set>
+        where goods_Id=#{goodsId}
+    </update>
+    <delete id="deleteGoods" parameterType="java.lang.Integer">
+		delete from goods where goods_Id=#{id}
+	</delete>
+    <insert id="saveGoods" parameterType="Goods">
+        insert into goods(goods_Name, goods_Unit,goods_Num,goods_Type,goods_Date,goods_Desc)
+        values(#{goodsName},#{goodsUnit},#{goodsNum},#{goodsTypeID},#{goodsDate},#{goodsDesc})
+    </insert>
+    <select id="findGoodsById" parameterType="java.lang.Integer" resultMap="BaseGoods">
+        select * from goods where goods_Id = #{goodsId}
+    </select>
+</mapper>
